@@ -2,7 +2,7 @@
 
 [![](https://jitpack.io/v/viifo/SideSlipLayout.svg)](https://jitpack.io/#viifo/SideSlipLayout)
 
-[中文](https://github.com/viifo/SideSlipLayout/blob/master/README.md) | [English](https://github.com/viifo/SideSlipLayout/blob/master/README_en.md)
+[中文](https://gitee.com/viifo/SideSlipLayout/blob/master/README.md) | [English](https://gitee.com/viifo/SideSlipLayout/blob/master/README_en.md)
 
 一个整体滑动的侧滑菜单。
 
