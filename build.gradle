@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.2"
+        classpath 'com.android.tools.build:gradle:7.0.4'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
@@ -18,7 +18,10 @@ buildscript {
 allprojects {
     repositories {
         google()
+        // 中央仓库（不包含 snapshot 中央仓库）
         mavenCentral()
+        // snapshot 中央仓库
+        maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/'}
         jcenter() // Warning: this repository is going to shut down soon
     }
 }

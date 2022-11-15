@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
+    id 'signing'
 }
-apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 30
@@ -32,13 +33,107 @@ android {
     }
 }
 
+afterEvaluate {
+    publishing {
+        repositories { handler ->
+            maven {
+                // 允许使用 http
+                allowInsecureProtocol = true
+                name 'release'
+                // 默认先发布到 staging 暂存库，需要手动发布到中央仓库
+                url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+                credentials {
+                    username = project.property("sonatype.username")
+                    password = project.property("sonatype.password")
+                }
+            }
+            maven {
+                // 允许使用 http
+                allowInsecureProtocol = true
+                name 'snapshot'
+                url = 'https://s01.oss.sonatype.org/content/repositories/snapshots'
+                credentials {
+                    username = project.property("sonatype.username")
+                    password = project.property("sonatype.password")
+                }
+            }
+        }
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'io.github.viifo'
+                artifactId = 'sidesliplayout'
+                version = '1.0.0'
+                artifact javadocJar
+                artifact sourceJar
+                pom {
+                    name = 'SideSlipLayout'
+                    description = 'An overall sliding side-slip layout.'
+                    url = 'https://github.com/viifo/SideSlipLayout'
+                    scm {
+                        // 项目仓库地址
+                        connection = 'https://github.com/viifo/SideSlipLayout.git'
+                        developerConnection = 'https://github.com/viifo/SideSlipLayout.git'
+                        url = 'https://github.com/viifo/SideSlipLayout'
+                    }
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'viifo'
+                            name = 'viifo'
+                            email = 'jayeli.domain@gmail.com'
+                        }
+                    }
+                }
+            }
+            snapshot(MavenPublication) {
+                from components.release
+                groupId = 'io.github.viifo'
+                artifactId = 'sidesliplayout'
+                version = '1.0.0-SNAPSHOT'
+                artifact javadocJar
+                artifact sourceJar
+            }
+        }
+    }
+}
+
+signing {
+    // 签名配置
+    // 密钥信息放在全局的 gradle.properties 中
+    sign publishing.publications
+}
+
+// 生成文档注释
+task generateJavadocs(type: Javadoc) {
+    failOnError = false
+    source = android.sourceSets.main.java.srcDirs  // 设置源码所在的位置
+    ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
+    classpath += files(ext.androidJar)
+}
+
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.getSrcDirs() // 源码路径
+    archiveClassifier.set('sources')
+}
+
+task javadocJar(type: Jar) {
+    from generateJavadocs.destinationDir
+    archiveClassifier.set('javadoc')
+}
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'com.google.android.material:material:1.6.1'
     testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
