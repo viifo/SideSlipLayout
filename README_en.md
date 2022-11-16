@@ -1,6 +1,6 @@
 # SideSlipLayout
 
-[![](https://jitpack.io/v/viifo/SideSlipLayout.svg)](https://jitpack.io/#viifo/SideSlipLayout)
+[![](https://jitpack.io/v/viifo/SideSlipLayout.svg)](https://jitpack.io/#viifo/SideSlipLayout) [![](https://maven-badges.herokuapp.com/maven-central/io.github.viifo/sidesliplayout/badge.svg)](https://search.maven.org/artifact/io.github.viifo/sidesliplayout)
 
 [中文](https://gitee.com/viifo/SideSlipLayout/blob/master/README.md) | [English](https://gitee.com/viifo/SideSlipLayout/blob/master/README_en.md)
 
