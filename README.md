@@ -22,7 +22,9 @@
 allprojects {
     repositories {
         ...
-        maven { url 'https://jitpack.io' }
+        mavenCentral()
+        // 或
+        // maven { url 'https://jitpack.io' }
     }
 }
 ```
@@ -31,7 +33,9 @@ allprojects {
 
 ```groovy
 dependencies {
-    implementation 'com.github.viifo:SideSlipLayout:1.0.1'
+    implementation 'io.github.viifo:sidesliplayout:1.0.1'
+    // 或
+    // implementation 'com.github.viifo:SideSlipLayout:1.0.1'
 }
 ```
 

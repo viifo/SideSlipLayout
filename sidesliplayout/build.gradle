@@ -63,7 +63,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'io.github.viifo'
                 artifactId = 'sidesliplayout'
-                version = '1.0.0'
+                version = '1.0.1'
                 artifact javadocJar
                 artifact sourceJar
                 pom {
@@ -95,18 +95,17 @@ afterEvaluate {
                 from components.release
                 groupId = 'io.github.viifo'
                 artifactId = 'sidesliplayout'
-                version = '1.0.0-SNAPSHOT'
+                version = '1.0.1-SNAPSHOT'
                 artifact javadocJar
                 artifact sourceJar
             }
         }
     }
-}
-
-signing {
-    // 签名配置
-    // 密钥信息放在全局的 gradle.properties 中
-    sign publishing.publications
+    signing {
+        // 签名配置
+        // 密钥信息放在全局的 gradle.properties 中
+        sign publishing.publications.release //, publishing.publications.snapshot
+    }
 }
 
 // 生成文档注释
